@@ -81,15 +81,12 @@ const ResumeIframe = ({
   const height = isA4 ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
 
   return (
-    <div className={cx(
-      "flex h-full w-full items-center justify-center p-4",
-      "overflow-auto bg-gray-100 md:p-6"
-    )}>
+    <div className="flex h-full w-full items-center justify-center overflow-hidden p-4">
       <div 
-        className="relative h-auto"
+        className="relative"
         style={{
           width: `${width * scale}px`,
-          minWidth: `${width * scale}px`,
+          height: `${height * scale}px`,
         }}
       >
         <div
@@ -97,9 +94,9 @@ const ResumeIframe = ({
             width: `${width}px`,
             height: `${height}px`,
             transform: `scale(${scale})`,
-            transformOrigin: 'top center'
+            transformOrigin: '0 0'
           }}
-          className="relative bg-white shadow-lg"
+          className="absolute left-0 top-0 bg-white shadow-lg"
         >
           <Frame
             style={{ width: "100%", height: "100%" }}

@@ -33,32 +33,30 @@ export const Resume = () => {
   return (
     <>
       <NonEnglishFontsCSSLazyLoader />
-      <div className="flex min-h-[calc(100vh-var(--top-nav-bar-height))] w-full flex-col bg-gray-50">
-        {/* Resume Preview - 80% height */}
-        <div className="h-[80%] min-h-0 w-full">
-          <div className="flex h-full justify-center">
-            <FlexboxSpacer maxWidth={50} className="hidden md:block" />
-            <div className="h-full w-full max-w-[1200px]">
-              <section className="h-full w-full overflow-hidden">
-                <ResumeIframeCSR
-                  documentSize={settings.documentSize}
-                  scale={scale}
-                  enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
-                >
-                  <ResumePDF
-                    resume={resume}
-                    settings={settings}
-                    isPDF={DEBUG_RESUME_PDF_FLAG}
-                  />
-                </ResumeIframeCSR>
-              </section>
-            </div>
-            <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+      <div className="flex h-[calc(100vh-var(--top-nav-bar-height))] w-full flex-col bg-gray-50">
+        {/* Resume Preview Area */}
+        <div className="flex h-[calc(100%-120px)] min-h-0 w-full justify-center overflow-hidden">
+          <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+          <div className="h-full w-full max-w-[1200px]">
+            <section className="h-full w-full overflow-hidden">
+              <ResumeIframeCSR
+                documentSize={settings.documentSize}
+                scale={scale}
+                enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
+              >
+                <ResumePDF
+                  resume={resume}
+                  settings={settings}
+                  isPDF={DEBUG_RESUME_PDF_FLAG}
+                />
+              </ResumeIframeCSR>
+            </section>
           </div>
+          <FlexboxSpacer maxWidth={50} className="hidden md:block" />
         </div>
 
-        {/* Controls Section - 20% height */}
-        <div className="flex h-[20%] min-h-[120px] flex-col border-t border-gray-200 bg-white">
+        {/* Fixed Controls Section */}
+        <div className="h-[120px] shrink-0 border-t border-gray-200 bg-white">
           <ResumeControlBarCSR
             scale={scale}
             setScale={setScale}

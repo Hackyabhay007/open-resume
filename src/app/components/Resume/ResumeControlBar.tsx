@@ -34,9 +34,9 @@ const ResumeControlBar = ({
   }, [update, document]);
 
   return (
-    <div className="flex h-full flex-col justify-center gap-4 p-4 md:px-8">
+    <div className="flex h-full flex-col justify-center px-4 md:px-8">
       {/* Zoom Controls */}
-      <div className="flex w-full items-center gap-3">
+      <div className="mb-3 flex w-full items-center gap-3">
         <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
         <div className="flex flex-1 items-center gap-3">
           <input
@@ -68,7 +68,7 @@ const ResumeControlBar = ({
       {/* Download Button */}
       <a
         className={cx(
-          "flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2",
+          "flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5",
           "text-sm font-medium text-gray-700 shadow-sm transition-colors",
           "hover:bg-gray-50 active:bg-gray-100"
         )}
@@ -89,6 +89,4 @@ export const ResumeControlBarCSR = dynamic(
   }
 );
 
-export const ResumeControlBarBorder = () => (
-  <div className="absolute bottom-[var(--resume-control-bar-height)] w-full border-t bg-gray-100" />
-);
+export const ResumeControlBarBorder = () => null;
