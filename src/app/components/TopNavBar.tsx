@@ -33,7 +33,6 @@ export const TopNavBar = () => {
         >
           {[
             ["/resume-builder", "Builder"],
-            ["/resume-parser", "Parser"],
           ].map(([href, text]) => (
             <Link
               key={text}
@@ -45,7 +44,7 @@ export const TopNavBar = () => {
           ))}
           <div className="ml-1 mt-1">
             <iframe
-              src="https://ghbtns.com/github-btn.html?user=xitanggg&repo=open-resume&type=star&count=true"
+              src="https://ghbtns.com/github-btn.html?user=abhaygupta&repo=jobmato&type=star&count=true"
               width="100"
               height="20"
               className="overflow-hidden border-none"
