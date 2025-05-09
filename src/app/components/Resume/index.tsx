@@ -33,26 +33,28 @@ export const Resume = () => {
   return (
     <>
       <NonEnglishFontsCSSLazyLoader />
-      <div className="flex h-[calc(100vh-var(--top-nav-bar-height))] w-full flex-col overflow-hidden">
+      <div className="flex min-h-[calc(100vh-var(--top-nav-bar-height))] w-full flex-col bg-gray-50">
         {/* Resume Preview - 80% height */}
-        <div className="relative flex h-[80%] justify-center overflow-hidden">
-          <FlexboxSpacer maxWidth={50} className="hidden md:block" />
-          <div className="relative flex w-full flex-1 flex-col">
-            <section className="h-full w-full overflow-hidden bg-gray-100 p-3 md:p-6">
-              <ResumeIframeCSR
-                documentSize={settings.documentSize}
-                scale={scale}
-                enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
-              >
-                <ResumePDF
-                  resume={resume}
-                  settings={settings}
-                  isPDF={DEBUG_RESUME_PDF_FLAG}
-                />
-              </ResumeIframeCSR>
-            </section>
+        <div className="h-[80%] min-h-0 w-full">
+          <div className="flex h-full justify-center">
+            <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+            <div className="h-full w-full max-w-[1200px]">
+              <section className="h-full w-full overflow-hidden">
+                <ResumeIframeCSR
+                  documentSize={settings.documentSize}
+                  scale={scale}
+                  enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
+                >
+                  <ResumePDF
+                    resume={resume}
+                    settings={settings}
+                    isPDF={DEBUG_RESUME_PDF_FLAG}
+                  />
+                </ResumeIframeCSR>
+              </section>
+            </div>
+            <FlexboxSpacer maxWidth={50} className="hidden md:block" />
           </div>
-          <FlexboxSpacer maxWidth={50} className="hidden md:block" />
         </div>
 
         {/* Controls Section - 20% height */}
