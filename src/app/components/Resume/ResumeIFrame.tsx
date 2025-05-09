@@ -82,24 +82,24 @@ const ResumeIframe = ({
 
   return (
     <div className={cx(
-      "flex items-center justify-center w-full h-full",
-      "min-h-0 overflow-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200"
+      "flex h-full w-full items-center justify-center",
+      "rounded-lg bg-white shadow-lg"
     )}>
-      <div
+      <div 
+        className="relative flex h-full w-full items-center justify-center overflow-auto"
         style={{
           maxWidth: `${width * scale}px`,
           maxHeight: `${height * scale}px`,
-          width: '100%',
         }}
-        className="relative mx-auto"
       >
         <div
           style={{
             width: `${width}px`,
             height: `${height}px`,
             transform: `scale(${scale})`,
+            transformOrigin: 'center'
           }}
-          className="origin-top bg-white shadow-lg"
+          className="bg-white"
         >
           <Frame
             style={{ width: "100%", height: "100%" }}

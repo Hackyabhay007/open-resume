@@ -34,61 +34,54 @@ const ResumeControlBar = ({
   }, [update, document]);
 
   return (
-    <div className="sticky bottom-0 left-0 right-0 z-10 bg-white">
-      <div className={cx(
-        "flex min-h-[var(--resume-control-bar-height)] flex-col gap-2 p-3",
-        "md:h-[var(--resume-control-bar-height)] md:flex-row md:items-center md:justify-between md:px-[var(--resume-padding)]"
-      )}>
-        <div className="flex w-full items-center gap-2 md:w-auto">
-          <div className="flex flex-1 items-center gap-2 md:flex-initial">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
-            <input
-              type="range"
-              min={0.5}
-              max={1.5}
-              step={0.01}
-              value={scale}
-              onChange={(e) => {
-                setScaleOnResize(false);
-                setScale(Number(e.target.value));
-              }}
-              className="w-full max-w-[140px] md:w-[140px]"
-            />
-            <div className="w-12 text-sm text-gray-600">{`${Math.round(scale * 100)}%`}</div>
-          </div>
-          
-          <label className="hidden items-center gap-1 whitespace-nowrap text-sm lg:flex">
-            <input
-              type="checkbox"
-              className="mt-0.5 h-4 w-4"
-              checked={scaleOnResize}
-              onChange={() => setScaleOnResize((prev) => !prev)}
-            />
-            <span className="select-none text-gray-600">Auto-fit</span>
-          </label>
+    <div className="flex h-full flex-col justify-center gap-4 p-4 md:px-8">
+      {/* Zoom Controls */}
+      <div className="flex w-full items-center gap-3">
+        <MagnifyingGlassIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
+        <div className="flex flex-1 items-center gap-3">
+          <input
+            type="range"
+            min={0.5}
+            max={1.5}
+            step={0.01}
+            value={scale}
+            onChange={(e) => {
+              setScaleOnResize(false);
+              setScale(Number(e.target.value));
+            }}
+            className="h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-gray-200"
+          />
+          <div className="w-16 text-sm text-gray-600">{`${Math.round(scale * 100)}%`}</div>
         </div>
         
-        <a
-          className={cx(
-            "flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 px-4 py-2",
-            "text-sm text-gray-600 hover:bg-gray-50 active:bg-gray-100",
-            "transition-colors duration-150",
-            "md:w-auto"
-          )}
-          href={instance.url!}
-          download={fileName}
-        >
-          <ArrowDownTrayIcon className="h-4 w-4" />
-          <span className="whitespace-nowrap">Download Resume</span>
-        </a>
+        <label className="hidden items-center gap-2 whitespace-nowrap text-sm lg:flex">
+          <input
+            type="checkbox"
+            className="h-4 w-4 rounded border-gray-300"
+            checked={scaleOnResize}
+            onChange={() => setScaleOnResize((prev) => !prev)}
+          />
+          <span className="select-none text-gray-600">Auto-fit</span>
+        </label>
       </div>
+
+      {/* Download Button */}
+      <a
+        className={cx(
+          "flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2",
+          "text-sm font-medium text-gray-700 shadow-sm transition-colors",
+          "hover:bg-gray-50 active:bg-gray-100"
+        )}
+        href={instance.url!}
+        download={fileName}
+      >
+        <ArrowDownTrayIcon className="h-4 w-4" />
+        <span>Download Resume</span>
+      </a>
     </div>
   );
 };
 
-/**
- * Load ResumeControlBar client side since it uses usePDF, which is a web specific API
- */
 export const ResumeControlBarCSR = dynamic(
   () => Promise.resolve(ResumeControlBar),
   {
