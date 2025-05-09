@@ -33,18 +33,12 @@ export const Resume = () => {
   return (
     <>
       <NonEnglishFontsCSSLazyLoader />
-      <div className="relative flex min-h-full w-full flex-col">
-        {/* Main content area */}
-        <div className="relative flex flex-1 justify-center overflow-hidden md:justify-start">
+      <div className="flex h-[calc(100vh-var(--top-nav-bar-height))] w-full flex-col overflow-hidden">
+        {/* Resume Preview - 80% height */}
+        <div className="relative flex h-[80%] justify-center overflow-hidden">
           <FlexboxSpacer maxWidth={50} className="hidden md:block" />
-          <div className="relative flex w-full max-w-5xl flex-1 flex-col">
-            <section 
-              className={cx(
-                "relative flex flex-1 justify-center overflow-hidden",
-                "h-[calc(100vh-var(--top-nav-bar-height)-var(--resume-control-bar-height))]",
-                "px-4 pt-4 md:p-[var(--resume-padding)]"
-              )}
-            >
+          <div className="relative flex w-full flex-1 flex-col">
+            <section className="h-full w-full overflow-hidden bg-gray-100 p-3 md:p-6">
               <ResumeIframeCSR
                 documentSize={settings.documentSize}
                 scale={scale}
@@ -57,17 +51,20 @@ export const Resume = () => {
                 />
               </ResumeIframeCSR>
             </section>
-            <ResumeControlBarCSR
-              scale={scale}
-              setScale={setScale}
-              documentSize={settings.documentSize}
-              document={document}
-              fileName={resume.profile.name + " - Resume"}
-            />
           </div>
           <FlexboxSpacer maxWidth={50} className="hidden md:block" />
         </div>
-        <ResumeControlBarBorder />
+
+        {/* Controls Section - 20% height */}
+        <div className="flex h-[20%] min-h-[120px] flex-col border-t border-gray-200 bg-white">
+          <ResumeControlBarCSR
+            scale={scale}
+            setScale={setScale}
+            documentSize={settings.documentSize}
+            document={document}
+            fileName={resume.profile.name + " - Resume"}
+          />
+        </div>
       </div>
     </>
   );
