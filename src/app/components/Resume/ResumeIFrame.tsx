@@ -81,7 +81,7 @@ const ResumeIframe = ({
   const height = isA4 ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
 
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden p-4">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden ">
       <div 
         className="relative"
         style={{
