@@ -11,6 +11,7 @@ import {
 } from "lib/constants";
 import dynamic from "next/dynamic";
 import { getAllFontFamiliesToLoad } from "components/fonts/lib";
+import { cx } from "lib/cx";
 
 const getIframeInitialContent = (isA4: boolean) => {
   const width = isA4 ? A4_WIDTH_PT : LETTER_WIDTH_PT;
@@ -18,18 +19,16 @@ const getIframeInitialContent = (isA4: boolean) => {
 
   const allFontFamiliesPreloadLinks = allFontFamilies
     .map(
-      (
-        font
-      ) => `<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
+      (font) => 
+`<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" as="font" href="/fonts/${font}-Bold.ttf" type="font/ttf" crossorigin="anonymous">`
     )
     .join("");
 
   const allFontFamiliesFontFaces = allFontFamilies
     .map(
-      (
-        font
-      ) => `@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
+      (font) => 
+`@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
 @font-face {font-family: "${font}"; src: url("/fonts/${font}-Bold.ttf"); font-weight: bold;}`
     )
     .join("");
@@ -40,18 +39,19 @@ const getIframeInitialContent = (isA4: boolean) => {
     ${allFontFamiliesPreloadLinks}
     <style>
       ${allFontFamiliesFontFaces}
+      body {
+        margin: 0;
+        padding: 0;
+        width: ${width}pt;
+        -webkit-text-size-adjust: none;
+        overflow: hidden;
+      }
     </style>
   </head>
-  <body style='overflow: hidden; width: ${width}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
-    <div></div>
-  </body>
+  <body><div></div></body>
 </html>`;
 };
 
-/**
- * Iframe is used here for style isolation, since react pdf uses pt unit.
- * It creates a sandbox document body that uses letter/A4 pt size as width.
- */
 const ResumeIframe = ({
   documentSize,
   scale,
@@ -76,51 +76,49 @@ const ResumeIframe = ({
       </DynamicPDFViewer>
     );
   }
+
   const width = isA4 ? A4_WIDTH_PX : LETTER_WIDTH_PX;
   const height = isA4 ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
 
   return (
-    <div
-      style={{
-        maxWidth: `${width * scale}px`,
-        maxHeight: `${height * scale}px`,
-      }}
-    >
-      {/* There is an outer div and an inner div here. The inner div sets the iframe width and uses transform scale to zoom in/out the resume iframe.
-        While zooming out or scaling down via transform, the element appears smaller but still occupies the same width/height. Therefore, we use the 
-        outer div to restrict the max width & height proportionally */}
+    <div className={cx(
+      "flex items-center justify-center w-full h-full",
+      "min-h-0 overflow-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200"
+    )}>
       <div
         style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          transform: `scale(${scale})`,
+          maxWidth: `${width * scale}px`,
+          maxHeight: `${height * scale}px`,
+          width: '100%',
         }}
-        className={`origin-top-left bg-white shadow-lg`}
+        className="relative mx-auto"
       >
-        <Frame
-          style={{ width: "100%", height: "100%" }}
-          initialContent={iframeInitialContent}
-          // key is used to force component to re-mount when document size changes
-          key={isA4 ? "A4" : "LETTER"}
+        <div
+          style={{
+            width: `${width}px`,
+            height: `${height}px`,
+            transform: `scale(${scale})`,
+          }}
+          className="origin-top bg-white shadow-lg"
         >
-          {children}
-        </Frame>
+          <Frame
+            style={{ width: "100%", height: "100%" }}
+            initialContent={iframeInitialContent}
+            key={isA4 ? "A4" : "LETTER"}
+          >
+            {children}
+          </Frame>
+        </div>
       </div>
     </div>
   );
 };
 
-/**
- * Load iframe client side since iframe can't be SSR
- */
 export const ResumeIframeCSR = dynamic(() => Promise.resolve(ResumeIframe), {
   ssr: false,
 });
 
-// PDFViewer is only used for debugging. Its size is quite large, so we make it dynamic import
 const DynamicPDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
