@@ -8,6 +8,11 @@ import type {
   ResumeProject,
   ResumeSkills,
   ResumeWorkExperience,
+  ResumeCertification,
+  ResumeLanguage,
+  ResumePublication,
+  ResumeAward,
+  ResumeVolunteer,
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
 
@@ -54,6 +59,40 @@ export const initialCustom = {
   descriptions: [],
 };
 
+export const initialCertification: ResumeCertification = {
+  name: "",
+  issuer: "",
+  date: "",
+  descriptions: [],
+};
+
+export const initialLanguage: ResumeLanguage = {
+  language: "",
+  proficiency: "",
+  descriptions: [],
+};
+
+export const initialPublication: ResumePublication = {
+  title: "",
+  publisher: "",
+  date: "",
+  descriptions: [],
+};
+
+export const initialAward: ResumeAward = {
+  title: "",
+  issuer: "",
+  date: "",
+  descriptions: [],
+};
+
+export const initialVolunteer: ResumeVolunteer = {
+  organization: "",
+  role: "",
+  date: "",
+  descriptions: [],
+};
+
 export const initialResumeState: Resume = {
   profile: initialProfile,
   workExperiences: [initialWorkExperience],
@@ -61,6 +100,11 @@ export const initialResumeState: Resume = {
   projects: [initialProject],
   skills: initialSkills,
   custom: initialCustom,
+  certifications: [initialCertification],
+  languages: [initialLanguage],
+  publications: [initialPublication],
+  awards: [initialAward],
+  volunteer: [initialVolunteer],
 };
 
 // Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
@@ -141,6 +185,101 @@ export const resumeSlice = createSlice({
       const { value } = action.payload;
       draft.custom.descriptions = value;
     },
+    changeCertifications: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+      } & (
+        | {
+            field: Exclude<keyof ResumeCertification, "descriptions">;
+            value: string;
+          }
+        | { field: "descriptions"; value: string[] }
+      )>
+    ) => {
+      const { idx, field, value } = action.payload;
+      if (field === "descriptions") {
+        draft.certifications[idx].descriptions = value as string[];
+      } else {
+        draft.certifications[idx][field] = value as string;
+      }
+    },
+    changeLanguages: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+      } & (
+        | {
+            field: Exclude<keyof ResumeLanguage, "descriptions">;
+            value: string;
+          }
+        | { field: "descriptions"; value: string[] }
+      )>
+    ) => {
+      const { idx, field, value } = action.payload;
+      if (field === "descriptions") {
+        draft.languages[idx].descriptions = value as string[];
+      } else {
+        draft.languages[idx][field] = value as string;
+      }
+    },
+    changePublications: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+      } & (
+        | {
+            field: Exclude<keyof ResumePublication, "descriptions">;
+            value: string;
+          }
+        | { field: "descriptions"; value: string[] }
+      )>
+    ) => {
+      const { idx, field, value } = action.payload;
+      if (field === "descriptions") {
+        draft.publications[idx].descriptions = value as string[];
+      } else {
+        draft.publications[idx][field] = value as string;
+      }
+    },
+    changeAwards: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+      } & (
+        | {
+            field: Exclude<keyof ResumeAward, "descriptions">;
+            value: string;
+          }
+        | { field: "descriptions"; value: string[] }
+      )>
+    ) => {
+      const { idx, field, value } = action.payload;
+      if (field === "descriptions") {
+        draft.awards[idx].descriptions = value as string[];
+      } else {
+        draft.awards[idx][field] = value as string;
+      }
+    },
+    changeVolunteer: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+      } & (
+        | {
+            field: Exclude<keyof ResumeVolunteer, "descriptions">;
+            value: string;
+          }
+        | { field: "descriptions"; value: string[] }
+      )>
+    ) => {
+      const { idx, field, value } = action.payload;
+      if (field === "descriptions") {
+        draft.volunteer[idx].descriptions = value as string[];
+      } else {
+        draft.volunteer[idx][field] = value as string;
+      }
+    },
     addSectionInForm: (draft, action: PayloadAction<{ form: ShowForm }>) => {
       const { form } = action.payload;
       switch (form) {
@@ -207,6 +346,11 @@ export const {
   changeProjects,
   changeSkills,
   changeCustom,
+  changeCertifications,
+  changeLanguages,
+  changePublications,
+  changeAwards,
+  changeVolunteer,
   addSectionInForm,
   moveSectionInForm,
   deleteSectionInFormByIdx,
@@ -221,5 +365,10 @@ export const selectEducations = (state: RootState) => state.resume.educations;
 export const selectProjects = (state: RootState) => state.resume.projects;
 export const selectSkills = (state: RootState) => state.resume.skills;
 export const selectCustom = (state: RootState) => state.resume.custom;
+export const selectCertifications = (state: RootState) => state.resume.certifications;
+export const selectLanguages = (state: RootState) => state.resume.languages;
+export const selectPublications = (state: RootState) => state.resume.publications;
+export const selectAwards = (state: RootState) => state.resume.awards;
+export const selectVolunteer = (state: RootState) => state.resume.volunteer;
 
 export default resumeSlice.reducer;

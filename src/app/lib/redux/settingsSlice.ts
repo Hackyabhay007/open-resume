@@ -12,6 +12,11 @@ export interface Settings {
     projects: boolean;
     skills: boolean;
     custom: boolean;
+    certifications: boolean;
+    languages: boolean;
+    publications: boolean;
+    awards: boolean;
+    volunteer: boolean;
   };
   formToHeading: {
     workExperiences: string;
@@ -19,6 +24,11 @@ export interface Settings {
     projects: string;
     skills: string;
     custom: string;
+    certifications: string;
+    languages: string;
+    publications: string;
+    awards: string;
+    volunteer: string;
   };
   formsOrder: ShowForm[];
   showBulletPoints: {
@@ -26,6 +36,11 @@ export interface Settings {
     projects: boolean;
     skills: boolean;
     custom: boolean;
+    certifications: boolean;
+    languages: boolean;
+    publications: boolean;
+    awards: boolean;
+    volunteer: boolean;
   };
 }
 
@@ -52,6 +67,11 @@ export const initialSettings: Settings = {
     projects: true,
     skills: true,
     custom: false,
+    certifications: false,
+    languages: false,
+    publications: false,
+    awards: false,
+    volunteer: false,
   },
   formToHeading: {
     workExperiences: "WORK EXPERIENCE",
@@ -59,13 +79,34 @@ export const initialSettings: Settings = {
     projects: "PROJECT",
     skills: "SKILLS",
     custom: "CUSTOM SECTION",
+    certifications: "CERTIFICATIONS",
+    languages: "LANGUAGES",
+    publications: "PUBLICATIONS",
+    awards: "AWARDS & ACHIEVEMENTS",
+    volunteer: "VOLUNTEER EXPERIENCE",
   },
-  formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
+  formsOrder: [
+    "workExperiences",
+    "educations",
+    "projects",
+    "skills",
+    "certifications",
+    "languages",
+    "publications",
+    "awards",
+    "volunteer",
+    "custom"
+  ],
   showBulletPoints: {
     educations: true,
     projects: true,
     skills: true,
     custom: true,
+    certifications: true,
+    languages: true,
+    publications: true,
+    awards: true,
+    volunteer: true,
   },
 };
 

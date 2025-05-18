@@ -13,6 +13,11 @@ import { ProjectsForm } from "components/ResumeForm/ProjectsForm";
 import { SkillsForm } from "components/ResumeForm/SkillsForm";
 import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
+import { CertificationsForm } from "components/ResumeForm/CertificationsForm";
+import { LanguagesForm } from "components/ResumeForm/LanguagesForm";
+import { PublicationsForm } from "components/ResumeForm/PublicationsForm";
+import { AwardsForm } from "components/ResumeForm/AwardsForm";
+import { VolunteerForm } from "components/ResumeForm/VolunteerForm";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
 import {
@@ -34,6 +39,11 @@ const formTypeToComponent: { [type in ShowForm | 'profile' | 'settings']: () => 
   projects: ProjectsForm,
   skills: SkillsForm,
   custom: CustomForm,
+  certifications: CertificationsForm,
+  languages: LanguagesForm,
+  publications: PublicationsForm,
+  awards: AwardsForm,
+  volunteer: VolunteerForm,
   settings: ThemeForm,
 };
 
@@ -44,6 +54,11 @@ const formTypeToIcon: { [type in ShowForm | 'profile' | 'settings']: typeof User
   projects: LightBulbIcon,
   skills: WrenchIcon,
   custom: WrenchIcon,
+  certifications: WrenchIcon,
+  languages: WrenchIcon,
+  publications: WrenchIcon,
+  awards: WrenchIcon,
+  volunteer: WrenchIcon,
   settings: Cog6ToothIcon,
 };
 
@@ -54,6 +69,11 @@ const formTypeToLabel: { [type in ShowForm | 'profile' | 'settings']: string } =
   projects: 'Projects',
   skills: 'Skills',
   custom: 'Custom',
+  certifications: 'Certifications',
+  languages: 'Languages',
+  publications: 'Publications',
+  awards: 'Awards',
+  volunteer: 'Volunteer',
   settings: 'Settings'
 };
 
