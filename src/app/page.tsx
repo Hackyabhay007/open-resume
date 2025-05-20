@@ -1,3 +1,5 @@
+"use client";
+
 import { Hero } from "home/Hero";
 import { Steps } from "home/Steps";
 import { Features } from "home/Features";

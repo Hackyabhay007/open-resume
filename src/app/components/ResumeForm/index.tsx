@@ -27,7 +27,9 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-const formTypeToComponent: { [type in ShowForm | 'profile' | 'settings']: () => JSX.Element } = {
+type AllFormTypes = ShowForm | 'profile' | 'settings';
+
+const formTypeToComponent: { [type in AllFormTypes]: () => JSX.Element } = {
   profile: ProfileForm,
   workExperiences: WorkExperiencesForm,
   educations: EducationsForm,
@@ -37,7 +39,7 @@ const formTypeToComponent: { [type in ShowForm | 'profile' | 'settings']: () => 
   settings: ThemeForm,
 };
 
-const formTypeToIcon: { [type in ShowForm | 'profile' | 'settings']: typeof UserCircleIcon } = {
+const formTypeToIcon: { [type in AllFormTypes]: typeof UserCircleIcon } = {
   profile: UserCircleIcon,
   workExperiences: BuildingOfficeIcon,
   educations: AcademicCapIcon,
@@ -47,7 +49,7 @@ const formTypeToIcon: { [type in ShowForm | 'profile' | 'settings']: typeof User
   settings: Cog6ToothIcon,
 };
 
-const formTypeToLabel: { [type in ShowForm | 'profile' | 'settings']: string } = {
+const formTypeToLabel: { [type in AllFormTypes]: string } = {
   profile: 'Profile',
   workExperiences: 'Experience',
   educations: 'Education',
@@ -57,61 +59,79 @@ const formTypeToLabel: { [type in ShowForm | 'profile' | 'settings']: string } =
   settings: 'Settings'
 };
 
+const Sidebar = ({
+  isSidebarOpen,
+  setIsSidebarOpen,
+  activeTab,
+  setActiveTab,
+  allTabs,
+}: {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (isOpen: boolean) => void;
+  activeTab: AllFormTypes;
+  setActiveTab: (tab: AllFormTypes) => void;
+  allTabs: readonly AllFormTypes[];
+}) => (
+  <div className={cx(
+    "bg-white border-r border-gray-200",
+    "fixed inset-y-0 left-0 z-20 w-64 transform transition-transform duration-300 ease-in-out md:sticky md:top-[var(--top-nav-bar-height)] md:h-[calc(100vh-var(--top-nav-bar-height))] md:w-20 md:translate-x-0",
+    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+  )}>
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between p-4 md:hidden">
+        <h2 className="text-xl font-semibold">Sections</h2>
+        <button onClick={() => setIsSidebarOpen(false)}>
+          <XMarkIcon className="h-6 w-6" />
+        </button>
+      </div>
+      <div className="flex flex-1 flex-col gap-1 p-3">
+        {allTabs.map((tab) => {
+          const Icon = formTypeToIcon[tab];
+          return (
+            <button
+              key={tab}
+              onClick={() => {
+                setActiveTab(tab);
+                setIsSidebarOpen(false);
+              }}
+              className={cx(
+                "flex items-center gap-3 rounded-lg p-3 text-sm font-medium transition-colors",
+                "md:flex-col md:gap-1",
+                activeTab === tab 
+                  ? "bg-blue-50 text-blue-600" 
+                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+              )}
+            >
+              <Icon className="h-5 w-5 shrink-0" />
+              <span className="md:text-xs">{formTypeToLabel[tab]}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+);
+
 export const ResumeForm = () => {
   useSetInitialStore();
   useSaveStateToLocalStorageOnChange();
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
-  const [activeTab, setActiveTab] = useState<ShowForm | 'profile' | 'settings'>('profile');
+  const [activeTab, setActiveTab] = useState<AllFormTypes>('profile');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const allTabs = ['profile', ...formsOrder, 'settings'] as const;
 
-  const Sidebar = () => (
-    <div className={cx(
-      "bg-white border-r border-gray-200",
-      "fixed inset-y-0 left-0 z-20 w-64 transform transition-transform duration-300 ease-in-out md:sticky md:top-[var(--top-nav-bar-height)] md:h-[calc(100vh-var(--top-nav-bar-height))] md:w-20 md:translate-x-0",
-      isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-    )}>
-      <div className="flex h-full flex-col">
-        <div className="flex items-center justify-between p-4 md:hidden">
-          <h2 className="text-xl font-semibold">Sections</h2>
-          <button onClick={() => setIsSidebarOpen(false)}>
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
-        <div className="flex flex-1 flex-col gap-1 p-3">
-          {allTabs.map((tab) => {
-            const Icon = formTypeToIcon[tab];
-            return (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  setIsSidebarOpen(false);
-                }}
-                className={cx(
-                  "flex items-center gap-3 rounded-lg p-3 text-sm font-medium transition-colors",
-                  "md:flex-col md:gap-1",
-                  activeTab === tab 
-                    ? "bg-blue-50 text-blue-600" 
-                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                )}
-              >
-                <Icon className="h-5 w-5 shrink-0" />
-                <span className="md:text-xs">{formTypeToLabel[tab]}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <div className="flex min-h-full">
-      <Sidebar />
+      <Sidebar 
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        allTabs={allTabs}
+      />
 
       {/* Mobile overlay */}
       {isSidebarOpen && (
