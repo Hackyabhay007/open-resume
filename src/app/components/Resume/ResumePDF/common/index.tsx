@@ -25,17 +25,6 @@ export const ResumePDFSection = ({
   >
     {heading && (
       <View style={{ ...styles.flexRow, alignItems: "center" }}>
-        {themeColor && (
-          <View
-            style={{
-              height: "3.75pt",
-              width: "30pt",
-              backgroundColor: themeColor,
-              marginRight: spacing["3.5"],
-            }}
-            debug={DEBUG_RESUME_PDF_FLAG}
-          />
-        )}
         <Text
           style={{
             fontWeight: "bold",
