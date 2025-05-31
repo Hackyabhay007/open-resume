@@ -13,11 +13,11 @@ export default function Create() {
     <Provider store={store}>
       <main className="relative h-full w-full overflow-hidden bg-white">
         {/* Desktop view */}
-        <div className="hidden md:grid md:grid-cols-6">
-          <div className="col-span-3">
+        <div className="hidden md:grid md:grid-cols-10">
+          <div className="col-span-4">
             <ResumeForm />
           </div>
-          <div className="col-span-3">
+          <div className="col-span-6">
             <Resume />
           </div>
         </div>

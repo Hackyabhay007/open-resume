@@ -74,7 +74,7 @@ const Sidebar = ({
 }) => (
   <div className={cx(
     "bg-white border-r border-gray-200",
-    "fixed inset-y-0 left-0 z-20 w-64 transform transition-transform duration-300 ease-in-out md:sticky md:top-[var(--top-nav-bar-height)] md:h-[calc(100vh-var(--top-nav-bar-height))] md:w-20 md:translate-x-0",
+    "fixed inset-y-0 left-0 z-20 w-64 transform transition-transform duration-300 ease-in-out md:sticky md:top-[var(--top-nav-bar-height)] md:h-[calc(100vh-var(--top-nav-bar-height))] md:w-16 md:translate-x-0",
     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
   )}>
     <div className="flex h-full flex-col">
@@ -84,7 +84,7 @@ const Sidebar = ({
           <XMarkIcon className="h-6 w-6" />
         </button>
       </div>
-      <div className="flex flex-1 flex-col gap-1 p-3">
+      <div className="flex flex-1 flex-col gap-1 p-2">
         {allTabs.map((tab) => {
           const Icon = formTypeToIcon[tab];
           return (
@@ -95,14 +95,14 @@ const Sidebar = ({
                 setIsSidebarOpen(false);
               }}
               className={cx(
-                "flex items-center gap-3 rounded-lg p-3 text-sm font-medium transition-colors",
-                "md:flex-col md:gap-1",
+                "flex items-center gap-2 rounded-lg p-2 text-sm font-medium transition-colors",
+                "md:flex-col md:gap-1 md:py-2 md:px-1",
                 activeTab === tab 
                   ? "bg-blue-50 text-blue-600" 
                   : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
               )}
             >
-              <Icon className="h-5 w-5 shrink-0" />
+              <Icon className="h-4 w-4 shrink-0 md:h-5 md:w-5" />
               <span className="md:text-xs">{formTypeToLabel[tab]}</span>
             </button>
           );
@@ -162,7 +162,7 @@ export const ResumeForm = () => {
           onMouseOver={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          <div className="w-full max-w-3xl flex-1 p-[var(--resume-padding)]">
+          <div className="w-full max-w-2xl flex-1 p-3">
             {(() => {
               const Component = formTypeToComponent[activeTab];
               return <Component key={activeTab} />;
