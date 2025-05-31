@@ -18,6 +18,9 @@ export const initialProfile: ResumeProfile = {
   phone: "",
   location: "",
   url: "",
+  linkedin: "",
+  github: "",
+  twitter: "",
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {

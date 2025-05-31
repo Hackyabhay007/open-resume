@@ -7,7 +7,7 @@ import { ResumeProfile } from "lib/redux/types";
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
-  const { name, email, phone, url, summary, location } = profile;
+  const { name, email, phone, url, summary, location, linkedin, github, twitter } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
@@ -32,9 +32,11 @@ export const ProfileForm = () => {
           value={summary}
           onChange={handleProfileChange}
         />
+        
+        {/* Contact Information - Responsive for mobile */}
         <Input
           label="Email"
-          labelClassName="col-span-4"
+          labelClassName="col-span-6 sm:col-span-4"
           name="email"
           placeholder="hello@khanacademy.org"
           value={email}
@@ -42,26 +44,56 @@ export const ProfileForm = () => {
         />
         <Input
           label="Phone"
-          labelClassName="col-span-2"
+          labelClassName="col-span-6 sm:col-span-2"
           name="phone"
           placeholder="(123)456-7890"
           value={phone}
           onChange={handleProfileChange}
         />
         <Input
+          label="Location"
+          labelClassName="col-span-6 sm:col-span-2"
+          name="location"
+          placeholder="NYC, NY"
+          value={location}
+          onChange={handleProfileChange}
+        />
+        
+        {/* Social Media Section */}
+        <div className="col-span-full mt-2 mb-1">
+          <h3 className="text-sm font-medium text-gray-700">Social Media</h3>
+        </div>
+        
+        <Input
           label="Website"
-          labelClassName="col-span-4"
+          labelClassName="col-span-6 sm:col-span-3"
           name="url"
-          placeholder="linkedin.com/in/khanacademy"
+          placeholder="yourwebsite.com"
           value={url}
           onChange={handleProfileChange}
         />
         <Input
-          label="Location"
-          labelClassName="col-span-2"
-          name="location"
-          placeholder="NYC, NY"
-          value={location}
+          label="LinkedIn"
+          labelClassName="col-span-6 sm:col-span-3"
+          name="linkedin"
+          placeholder="linkedin.com/in/username"
+          value={linkedin || ''}
+          onChange={handleProfileChange}
+        />
+        <Input
+          label="GitHub"
+          labelClassName="col-span-6 sm:col-span-3"
+          name="github"
+          placeholder="github.com/username"
+          value={github || ''}
+          onChange={handleProfileChange}
+        />
+        <Input
+          label="Twitter"
+          labelClassName="col-span-6 sm:col-span-3"
+          name="twitter"
+          placeholder="twitter.com/username"
+          value={twitter || ''}
           onChange={handleProfileChange}
         />
       </div>

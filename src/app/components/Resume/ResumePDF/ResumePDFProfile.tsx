@@ -20,8 +20,13 @@ export const ResumePDFProfile = ({
   themeColor: string;
   isPDF: boolean;
 }) => {
-  const { name, email, phone, url, summary, location } = profile;
-  const iconProps = { email, phone, location, url };
+  const { name, email, phone, url, summary, location, linkedin, github, twitter } = profile;
+  const iconProps = { email, phone, location, url, linkedin, github, twitter };
+  
+  // Debug log for PDF generation
+  if (isPDF) {
+    console.log("PDF Mode - Profile Data:", { name, email, phone, url, linkedin, github, twitter });
+  }
 
   return (
     <ResumePDFSection style={{ marginTop: spacing["4"] }}>
@@ -50,9 +55,15 @@ export const ResumePDFProfile = ({
             } else if (value.includes("linkedin")) {
               iconType = "url_linkedin";
             }
+          } else if (key === "linkedin") {
+            iconType = "url_linkedin";
+          } else if (key === "github") {
+            iconType = "url_github";
+          } else if (key === "twitter") {
+            iconType = "url";
           }
 
-          const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
+          const shouldUseLinkWrapper = ["email", "url", "phone", "linkedin", "github", "twitter"].includes(key);
           const Wrapper = ({ children }: { children: React.ReactNode }) => {
             if (!shouldUseLinkWrapper) return <>{children}</>;
 
@@ -64,6 +75,18 @@ export const ResumePDFProfile = ({
               }
               case "phone": {
                 src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                break;
+              }
+              case "linkedin": {
+                src = value.startsWith("http") ? value : `https://linkedin.com/in/${value}`;
+                break;
+              }
+              case "github": {
+                src = value.startsWith("http") ? value : `https://github.com/${value}`;
+                break;
+              }
+              case "twitter": {
+                src = value.startsWith("http") ? value : `https://twitter.com/${value}`;
                 break;
               }
               default: {

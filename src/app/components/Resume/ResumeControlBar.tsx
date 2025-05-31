@@ -30,6 +30,8 @@ const ResumeControlBar = ({
   const [instance, update] = usePDF({ document });
 
   useEffect(() => {
+    // Debug the document object
+    console.log("PDF Generation - Document profile:", document?.props?.resume?.profile);
     update();
   }, [update, document]);
 

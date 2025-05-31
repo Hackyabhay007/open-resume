@@ -39,7 +39,12 @@ export const Resume = () => {
   // Ensure resume has all required properties with defaults
   const safeResume = {
     ...resume,
-    profile: resume.profile || {},
+    profile: {
+      ...(resume.profile || {}),
+      linkedin: resume.profile?.linkedin || '',
+      github: resume.profile?.github || '',
+      twitter: resume.profile?.twitter || '',
+    },
     workExperiences: resume.workExperiences || [],
     educations: resume.educations || [],
     projects: resume.projects || [],

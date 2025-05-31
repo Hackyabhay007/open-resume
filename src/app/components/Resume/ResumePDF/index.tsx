@@ -38,6 +38,11 @@ export const ResumePDF = ({
   const { profile, workExperiences, educations, projects, skills, custom } =
     resume;
   const { name } = profile;
+  
+  // Debug log for PDF generation
+  if (isPDF) {
+    console.log("ResumePDF Component - isPDF mode with profile:", profile);
+  }
   const {
     fontFamily,
     fontSize,

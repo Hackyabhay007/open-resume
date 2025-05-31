@@ -123,7 +123,7 @@ export const ResumePDFLink = ({
 }) => {
   if (isPDF) {
     return (
-      <Link src={src} style={{ textDecoration: "none" }}>
+      <Link src={src} style={{ textDecoration: "none", color: 'inherit' }}>
         {children}
       </Link>
     );
