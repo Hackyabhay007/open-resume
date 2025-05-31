@@ -61,6 +61,18 @@ export const ThemeForm = () => {
                 {settings.themeColor === color ? "✓" : ""}
               </div>
             ))}
+            <div
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm border border-gray-300 text-gray-700"
+              onClick={() => handleSettingsChange("themeColor", "")}
+              onKeyDown={(e) => {
+                if (["Enter", " "].includes(e.key))
+                  handleSettingsChange("themeColor", "");
+              }}
+              tabIndex={0}
+              title="No color (removes top line)"
+            >
+              ✗
+            </div>
           </div>
         </div>
         <div>

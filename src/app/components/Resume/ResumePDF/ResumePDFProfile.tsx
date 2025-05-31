@@ -33,11 +33,11 @@ export const ResumePDFProfile = ({
       <ResumePDFText
         bold={true}
         themeColor={themeColor}
-        style={{ fontSize: "20pt" }}
+        style={{ fontSize: "20pt", marginBottom: spacing[0.5] }}
       >
         {name}
       </ResumePDFText>
-      {summary && <ResumePDFText>{summary}</ResumePDFText>}
+      {summary && <ResumePDFText style={{ marginBottom: spacing[1] }}>{summary}</ResumePDFText>}
       <View
         style={{
           ...styles.flexRowBetween,

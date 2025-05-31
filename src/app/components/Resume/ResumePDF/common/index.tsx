@@ -19,7 +19,7 @@ export const ResumePDFSection = ({
     style={{
       ...styles.flexCol,
       gap: spacing["2"],
-      marginTop: spacing["5"],
+      marginTop: spacing["3"],
       ...style,
     }}
   >
