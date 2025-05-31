@@ -68,9 +68,9 @@ const ResumeControlBar = ({
       {/* Download Button */}
       <a
         className={cx(
-          "flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5",
-          "text-sm font-medium text-gray-700 shadow-sm transition-colors",
-          "hover:bg-gray-50 active:bg-gray-100"
+          "flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3",
+          "text-sm font-medium text-white shadow-sm transition-colors",
+          "hover:bg-blue-700 active:bg-blue-800"
         )}
         href={instance.url!}
         download={fileName}

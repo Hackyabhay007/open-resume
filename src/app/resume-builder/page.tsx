@@ -11,7 +11,7 @@ export default function Create() {
 
   return (
     <Provider store={store}>
-      <main className="relative h-full w-full overflow-hidden bg-gray-50">
+      <main className="relative h-full w-full overflow-hidden bg-white">
         {/* Desktop view */}
         <div className="hidden md:grid md:grid-cols-6">
           <div className="col-span-3">
@@ -24,24 +24,24 @@ export default function Create() {
 
         {/* Mobile view with tabs */}
         <div className="flex flex-col md:hidden h-screen">
-          <div className="flex border-b border-gray-200">
+          <div className="flex border-b border-gray-200 bg-white shadow-sm">
             <button
               onClick={() => setActiveTab('form')}
               className={cx(
-                "flex-1 py-2 px-4 text-sm font-medium",
+                "flex-1 py-3 px-4 text-center font-medium transition-colors",
                 activeTab === 'form' 
-                  ? "border-b-2 border-blue-500 text-blue-600"
+                  ? "text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
               )}
             >
-              Edit
+              CV Builder
             </button>
             <button
               onClick={() => setActiveTab('preview')}  
               className={cx(
-                "flex-1 py-2 px-4 text-sm font-medium",
+                "flex-1 py-3 px-4 text-center font-medium transition-colors",
                 activeTab === 'preview'
-                  ? "border-b-2 border-blue-500 text-blue-600"
+                  ? "text-blue-600 bg-blue-50"
                   : "text-gray-500 hover:text-gray-700"
               )}
             >
